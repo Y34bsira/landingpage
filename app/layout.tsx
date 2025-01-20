@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Software Composer LP - Cursor Template",
-  description: "Create stunning landing pages in minutes with just 3 prompts. Save thousands on design and development with our Cursor-powered template.",
+  title: "Gymers - Modern Gym Management Software",
+  description: "Transform your gym's operations with our three-tier software package. Streamline member management, automate billing, and enhance member experience.",
 };
 
 export default function RootLayout({
