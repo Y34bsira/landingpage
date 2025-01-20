@@ -379,38 +379,38 @@ export default function Page() {
                       <div className="flex items-center justify-between mb-4">
                         <div className="text-sm font-medium">Member Activity</div>
                         <div className="text-xs text-[#F86422]">This Week</div>
-                      </div>
+                  </div>
                       <div className="space-y-3">
                         <div className="flex items-center gap-3">
                           <div className="text-xs text-neutral-400 w-12">Mon</div>
                           <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
                             <div className="h-full w-[85%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" />
-                          </div>
+                      </div>
                           <div className="text-xs">85%</div>
-                        </div>
+                      </div>
                         <div className="flex items-center gap-3">
                           <div className="text-xs text-neutral-400 w-12">Tue</div>
                           <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
                             <div className="h-full w-[75%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '200ms' }} />
-                          </div>
+                    </div>
                           <div className="text-xs">75%</div>
-                        </div>
+                  </div>
                         <div className="flex items-center gap-3">
                           <div className="text-xs text-neutral-400 w-12">Wed</div>
                           <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
                             <div className="h-full w-[90%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '400ms' }} />
-                          </div>
-                          <div className="text-xs">90%</div>
-                        </div>
                       </div>
+                          <div className="text-xs">90%</div>
                     </div>
+                          </div>
+                          </div>
 
                     {/* Membership Distribution */}
                     <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors">
                       <div className="flex items-center justify-between mb-4">
                         <div className="text-sm font-medium">Membership Types</div>
                         <div className="text-xs text-[#F86422]">Distribution</div>
-                      </div>
+                        </div>
                       <div className="flex gap-2">
                         <div className="flex-1 space-y-2">
                           <div className="flex justify-between text-xs">
@@ -437,7 +437,7 @@ export default function Page() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                      </div>
 
                   <div className="flex-1 p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -480,20 +480,20 @@ export default function Page() {
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-xs font-medium">New Member Orientation</span>
                               <span className="text-xs text-[#F86422]">Today</span>
-                        </div>
+                          </div>
                             <div className="text-xs text-neutral-400">2:00 PM - 3:00 PM</div>
                             <div className="mt-2 flex items-center gap-2">
                               <div className="w-5 h-5 rounded-full bg-[#F86422]/20 flex items-center justify-center">
                                 <div className="w-3 h-3 rounded-full bg-[#F86422]" />
-                              </div>
-                              <span className="text-xs">3 Attendees</span>
-                            </div>
                           </div>
+                              <span className="text-xs">3 Attendees</span>
+                        </div>
+                      </div>
                           <div className="p-3 bg-neutral-700/30 rounded-lg group-hover/meetings:translate-x-1 transition-transform" style={{ transitionDelay: '100ms' }}>
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-xs font-medium">Staff Training</span>
                               <span className="text-xs text-green-400">Tomorrow</span>
-                            </div>
+                    </div>
                             <div className="text-xs text-neutral-400">10:00 AM - 11:30 AM</div>
                             <div className="mt-2 flex items-center gap-2">
                               <div className="w-5 h-5 rounded-full bg-green-400/20 flex items-center justify-center">
