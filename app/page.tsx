@@ -28,6 +28,21 @@ export default function Page() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-foreground">
+      {/* Navigation */}
+      <header className="flex items-center justify-between py-4 px-6 border-b border-neutral-800/50">
+        <Link href="/" className="text-lg font-semibold">
+          Gymers
+        </Link>
+        <nav className="flex items-center gap-4">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/login">Log in</Link>
+          </Button>
+          <Button size="sm" asChild>
+            <a href="https://calendly.com/gymersapp/30min" target="_blank" rel="noopener noreferrer">Book a Demo</a>
+          </Button>
+        </nav>
+      </header>
+
       <style jsx global>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
@@ -133,6 +148,19 @@ export default function Page() {
         .scroll-delay-1 { transition-delay: 0.1s; }
         .scroll-delay-2 { transition-delay: 0.2s; }
         .scroll-delay-3 { transition-delay: 0.3s; }
+
+        .scroll-expand {
+          transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+          transform-origin: center;
+        }
+
+        .scroll-expand.animate-in {
+          transform: scale(1.1);
+        }
+
+        .scroll-expand.animate-out {
+          transform: scale(1);
+        }
 
         .feature-box {
           position: relative;
@@ -276,22 +304,7 @@ export default function Page() {
         }
       `}</style>
 
-      {/* Navigation */}
-      <header className="flex items-center justify-between py-4 px-6 border-b border-neutral-800/50">
-        <Link href="/" className="text-lg font-semibold">
-          Gymers
-        </Link>
-        <nav className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">Log in</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <a href="https://calendly.com/gymersapp/30min" target="_blank" rel="noopener noreferrer">Book a Demo</a>
-          </Button>
-        </nav>
-      </header>
-
-      <main className="flex-grow">
+      <main className="relative z-10">
         {/* Hero Section */}
         <section className="py-20 px-6 relative">
           <div className="hero-glow" />
@@ -309,9 +322,9 @@ export default function Page() {
                 }}
               >Three-Tier Software Package for Modern Gyms</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight fade-in delay-1">
-              Power Your Gym&apos;s<br />Success Story
-            </h1>
+            <h2 className="text-6xl md:text-8xl font-bold">
+              Power Your Gym&apos;s Success Story
+            </h2>
             <p className="text-xl text-neutral-400 mb-8 max-w-2xl mx-auto fade-in delay-2">
               Streamline operations, boost member engagement, and grow your fitness business with our comprehensive gym management solution.
             </p>
@@ -338,100 +351,261 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="flex flex-col md:flex-row h-[500px] md:h-[700px]">
-                  {/* Sidebar */}
-                  <div className="hidden md:block md:w-64 border-r border-neutral-800 p-4 flex-shrink-0">
-                    <div className="flex items-center gap-2 p-2 bg-neutral-800 rounded-lg mb-4">
-                      <div className="w-8 h-8 rounded-full bg-neutral-700" />
-                      <span>Gymers Suite</span>
+                  <div className="bg-neutral-900 w-full md:w-1/3 p-6 border-r border-neutral-800">
+                    <div className="flex items-center justify-between mb-6">
+                      <div>
+                        <div className="text-lg font-semibold">Gymers Suite</div>
+                        <div className="text-sm text-neutral-400">Dashboard Overview</div>
                     </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between p-2 rounded hover:bg-neutral-800 transition-colors">
-                        <span>Basic Plan</span>
-                        <span className="text-sm text-neutral-500">$99/mo</span>
+                      <div className="w-8 h-8 rounded-lg bg-[#F86422]/10 flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full bg-[#F86422] animate-pulse" />
                       </div>
-                      <div className="flex items-center justify-between p-2 rounded hover:bg-neutral-800 transition-colors">
-                        <span>Pro Plan</span>
-                        <span className="text-sm text-neutral-500">$199/mo</span>
                       </div>
-                      <div className="flex items-center justify-between p-2 rounded hover:bg-neutral-800 transition-colors">
-                        <span>Enterprise</span>
-                        <span className="text-sm text-neutral-500">Custom</span>
+
+                    {/* Quick Stats */}
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="bg-neutral-800/50 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-[#F86422]">847</div>
+                        <div className="text-sm text-neutral-400">Active Members</div>
                       </div>
-                      <div className="flex items-center justify-between p-2 rounded hover:bg-neutral-800 transition-colors">
-                        <span>ROI</span>
-                        <span className="text-sm text-green-500">300%+</span>
+                      <div className="bg-neutral-800/50 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-green-400">92%</div>
+                        <div className="text-sm text-neutral-400">Retention Rate</div>
+                      </div>
+                    </div>
+
+                    {/* Activity Graph */}
+                    <div className="bg-neutral-800/50 p-4 rounded-lg mb-4 hover:bg-neutral-800/70 transition-colors">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-medium">Member Activity</div>
+                        <div className="text-xs text-[#F86422]">This Week</div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                          <div className="text-xs text-neutral-400 w-12">Mon</div>
+                          <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[85%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" />
+                          </div>
+                          <div className="text-xs">85%</div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-xs text-neutral-400 w-12">Tue</div>
+                          <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[75%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '200ms' }} />
+                          </div>
+                          <div className="text-xs">75%</div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-xs text-neutral-400 w-12">Wed</div>
+                          <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[90%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '400ms' }} />
+                          </div>
+                          <div className="text-xs">90%</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Membership Distribution */}
+                    <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-medium">Membership Types</div>
+                        <div className="text-xs text-[#F86422]">Distribution</div>
+                      </div>
+                      <div className="flex gap-2">
+                        <div className="flex-1 space-y-2">
+                          <div className="flex justify-between text-xs">
+                            <span>Premium</span>
+                            <span className="text-[#F86422]">45%</span>
+                          </div>
+                          <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[45%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-700 scale-x-0 group-hover:scale-x-100" />
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Standard</span>
+                            <span className="text-green-400">35%</span>
+                          </div>
+                          <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[35%] bg-green-400 rounded-full transform origin-left transition-transform duration-700 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '200ms' }} />
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Basic</span>
+                            <span className="text-blue-400">20%</span>
+                          </div>
+                          <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[20%] bg-blue-400 rounded-full transform origin-left transition-transform duration-700 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '400ms' }} />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  {/* Mobile Stats Bar */}
-                  <div className="md:hidden w-full border-b border-neutral-800 p-3 bg-neutral-800/50">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-neutral-700" />
-                        <span className="text-sm font-medium">Gymers Suite</span>
+
+                  <div className="flex-1 p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Recent Activity */}
+                      <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors group/activity">
+                        <div className="text-sm font-medium mb-4 flex justify-between items-center">
+                          <span>Recent Activity</span>
+                          <span className="text-xs text-[#F86422] opacity-0 group-hover/activity:opacity-100 transition-opacity">Live</span>
+                        </div>
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3 hover:bg-neutral-700/30 p-2 rounded-lg transition-colors">
+                            <div className="w-2 h-2 rounded-full bg-green-400" />
+                            <div className="flex-1">
+                              <div className="text-xs">New member registration</div>
+                              <div className="text-xs text-neutral-400">2 mins ago</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3 hover:bg-neutral-700/30 p-2 rounded-lg transition-colors">
+                            <div className="w-2 h-2 rounded-full bg-[#F86422]" />
+                            <div className="flex-1">
+                              <div className="text-xs">Class booking - HIIT</div>
+                              <div className="text-xs text-neutral-400">15 mins ago</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3 hover:bg-neutral-700/30 p-2 rounded-lg transition-colors">
+                            <div className="w-2 h-2 rounded-full bg-blue-400" />
+                            <div className="flex-1">
+                              <div className="text-xs">Payment processed</div>
+                              <div className="text-xs text-neutral-400">1 hour ago</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-4 text-xs">
-                        <span className="text-neutral-400">3 Tiers</span>
-                        <span className="text-green-500 font-medium">300%+ ROI</span>
+
+                      {/* Upcoming Meetings */}
+                      <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors group/meetings">
+                        <div className="text-sm font-medium mb-4">Upcoming Meetings</div>
+                        <div className="space-y-3">
+                          <div className="p-3 bg-neutral-700/30 rounded-lg group-hover/meetings:translate-x-1 transition-transform">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-xs font-medium">New Member Orientation</span>
+                              <span className="text-xs text-[#F86422]">Today</span>
+                        </div>
+                            <div className="text-xs text-neutral-400">2:00 PM - 3:00 PM</div>
+                            <div className="mt-2 flex items-center gap-2">
+                              <div className="w-5 h-5 rounded-full bg-[#F86422]/20 flex items-center justify-center">
+                                <div className="w-3 h-3 rounded-full bg-[#F86422]" />
+                              </div>
+                              <span className="text-xs">3 Attendees</span>
+                            </div>
+                          </div>
+                          <div className="p-3 bg-neutral-700/30 rounded-lg group-hover/meetings:translate-x-1 transition-transform" style={{ transitionDelay: '100ms' }}>
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-xs font-medium">Staff Training</span>
+                              <span className="text-xs text-green-400">Tomorrow</span>
+                            </div>
+                            <div className="text-xs text-neutral-400">10:00 AM - 11:30 AM</div>
+                            <div className="mt-2 flex items-center gap-2">
+                              <div className="w-5 h-5 rounded-full bg-green-400/20 flex items-center justify-center">
+                                <div className="w-3 h-3 rounded-full bg-green-400" />
+                              </div>
+                              <span className="text-xs">5 Attendees</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+
+                      {/* Monthly Growth */}
+                      <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors col-span-2 group/growth">
+                        <div className="flex justify-between items-center mb-4">
+                          <div className="text-sm font-medium">Monthly Growth</div>
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 rounded-full bg-[#F86422]" />
+                              <span className="text-xs text-neutral-400">Members</span>
+                          </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 rounded-full bg-green-400" />
+                              <span className="text-xs text-neutral-400">Revenue</span>
+                          </div>
+                        </div>
+                      </div>
+                        {/* Monthly Growth Graph */}
+                        <div className="relative h-[160px]">
+                          {/* Grid lines */}
+                          <div className="absolute inset-0 z-0">
+                            <div className="h-full flex flex-col justify-between">
+                              {[...Array(5)].map((_, i) => (
+                                <div key={i} className="border-t border-neutral-700/50 w-full h-0" />
+                              ))}
                     </div>
                   </div>
-                  {/* Main Content */}
-                  <div className="flex-1 flex flex-col p-3 md:p-4 overflow-hidden">
-                    <div className="space-y-4 overflow-y-auto flex-1 pr-1">
-                      <div className="p-4 rounded-lg bg-neutral-800">
-                        <div className="flex items-center gap-3 md:gap-4 mb-2">
-                          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-neutral-700 flex-shrink-0" />
-                          <div className="min-w-0 flex-1">
-                            <h3 className="font-medium text-sm md:text-base">Basic Plan</h3>
-                            <p className="text-xs md:text-sm text-neutral-400">Perfect for Small Gyms</p>
+                          
+                          {/* Y-axis labels */}
+                          <div className="absolute left-0 top-0 h-full flex flex-col justify-between pr-2 z-10">
+                            <span className="text-[10px] text-neutral-400">100%</span>
+                            <span className="text-[10px] text-neutral-400">75%</span>
+                            <span className="text-[10px] text-neutral-400">50%</span>
+                            <span className="text-[10px] text-neutral-400">25%</span>
+                            <span className="text-[10px] text-neutral-400">0%</span>
                           </div>
-                          <div className="text-xs md:text-sm text-green-400 flex-shrink-0">
-                            Starting at $99/mo
+
+                          {/* Data Points */}
+                          <div className="absolute inset-0 ml-6 z-20">
+                            {[
+                              { month: 'Jan', members: 65, revenue: 55 },
+                              { month: 'Feb', members: 75, revenue: 70 },
+                              { month: 'Mar', members: 60, revenue: 65 },
+                              { month: 'Apr', members: 85, revenue: 80 },
+                              { month: 'May', members: 75, revenue: 85 },
+                              { month: 'Jun', members: 90, revenue: 88 },
+                              { month: 'Jul', members: 85, revenue: 92 }
+                            ].map((data, i) => (
+                              <div key={i} className="absolute group/point" style={{ 
+                                left: `${(i * 14.25) + 7}%`,
+                                bottom: '0',
+                                width: '20px',
+                                height: '100%'
+                              }}>
+                                {/* Member point */}
+                                <div 
+                                  className="absolute w-2 h-2 bg-[#F86422] rounded-full -translate-x-1/2 hover:scale-150 transition-transform duration-200"
+                                  style={{ 
+                                    bottom: `${data.members}%`,
+                                    left: '50%'
+                                  }}
+                                />
+                                {/* Revenue point */}
+                                <div 
+                                  className="absolute w-2 h-2 bg-green-400 rounded-full -translate-x-1/2 hover:scale-150 transition-transform duration-200"
+                                  style={{ 
+                                    bottom: `${data.revenue}%`,
+                                    left: '50%'
+                                  }}
+                                />
+                                {/* Combined hover card */}
+                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover/point:opacity-100 transition-opacity duration-200 pointer-events-none">
+                                  <div className="bg-neutral-800 rounded-lg p-2 shadow-lg border border-neutral-700 whitespace-nowrap">
+                                    <div className="text-xs font-medium">{data.month}</div>
+                                    <div className="text-xs text-[#F86422]">Members: {data.members}%</div>
+                                    <div className="text-xs text-green-400">Revenue: {data.revenue}%</div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                        <p className="text-sm text-neutral-300">
-                          • Member Management<br/>
-                          • Basic Scheduling<br/>
-                          • Payment Processing<br/>
-                          • Access Control<br/>
-                          • Basic Reports
-                        </p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-neutral-800">
-                        <div className="flex items-center gap-3 md:gap-4 mb-2">
-                          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-neutral-700 flex-shrink-0" />
-                          <div className="min-w-0 flex-1">
-                            <h3 className="font-medium text-sm md:text-base">Pro Plan</h3>
-                            <p className="text-xs md:text-sm text-neutral-400">For Growing Fitness Centers</p>
+                        {/* X-axis labels */}
+                        <div className="relative mt-2">
+                          {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'].map((month, i) => (
+                            <div key={i} className="absolute text-[10px] text-neutral-400" style={{
+                              left: `${(i * 14.25) + 7}%`,
+                              transform: 'translateX(-50%)'
+                            }}>{month}</div>
+                          ))}
+                        </div>
+
+                        {/* Stats */}
+                        <div className="mt-8 grid grid-cols-2 gap-4">
+                          <div className="bg-neutral-700/30 p-2 rounded-lg">
+                            <div className="text-xs text-neutral-400">Member Growth</div>
+                            <div className="text-sm font-medium text-[#F86422]">+24.5%</div>
                           </div>
-                          <div className="text-xs md:text-sm text-green-400 flex-shrink-0">
-                            Starting at $199/mo
+                          <div className="bg-neutral-700/30 p-2 rounded-lg">
+                            <div className="text-xs text-neutral-400">Revenue Growth</div>
+                            <div className="text-sm font-medium text-green-400">+32.8%</div>
                           </div>
                         </div>
-                        <p className="text-sm text-neutral-300">
-                          • Everything in Basic<br/>
-                          • Advanced Analytics<br/>
-                          • Automated Marketing<br/>
-                          • Staff Management<br/>
-                          • Mobile App
-                        </p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-neutral-800">
-                        <div className="flex items-center gap-3 md:gap-4 mb-2">
-                          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-neutral-700 flex-shrink-0" />
-                          <div className="min-w-0 flex-1">
-                            <h3 className="font-medium text-sm md:text-base">Enterprise</h3>
-                            <p className="text-xs md:text-sm text-neutral-400">For Gym Chains & Franchises</p>
-                          </div>
-                          <div className="text-xs md:text-sm text-green-400 flex-shrink-0">
-                            Custom Pricing
-                          </div>
-                        </div>
-                        <p className="text-sm text-neutral-300">
-                          • Everything in Pro<br/>
-                          • Custom Integrations<br/>
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -603,10 +777,10 @@ export default function Page() {
                     </li>
                   </ul>
                 </div>
-                <div className="order-1 md:order-2 bg-neutral-900 w-[320px] h-[280px] hover:w-[340px] hover:h-[300px] rounded-xl border border-neutral-800 hover:border-[#F86422]/70 p-6 relative overflow-hidden group mx-auto transition-all duration-300">
+                <div className="order-1 md:order-2 bg-neutral-900 w-[320px] h-[280px] hover:w-[340px] hover:h-[300px] rounded-xl border border-neutral-800 hover:border-[#F86422]/70 p-6 relative overflow-visible group mx-auto transition-all duration-300">
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                     <div className="absolute inset-[-1px] rounded-xl bg-[#F86422] blur-lg opacity-30" />
-                  </div>
+              </div>
                   <div className="relative z-10 w-full h-full flex items-center justify-center">
                     <div className="bg-neutral-800 rounded-lg p-6 w-64 shadow-lg transition-all duration-300 hover:scale-105 group">
                       <div className="flex items-center gap-4 mb-6">
@@ -615,7 +789,7 @@ export default function Page() {
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
                             <path d="M12 6v6l4 2"/>
                           </svg>
-                        </div>
+                  </div>
                         <div className="flex-1">
                           <div className="h-2 bg-neutral-700 rounded-full w-3/4 mb-2 overflow-hidden">
                             <div className="h-full w-full bg-gradient-to-r from-[#F86422] to-[#F86422]/60 transition-transform duration-1000 group-hover:translate-x-0 -translate-x-full" />
@@ -644,7 +818,7 @@ export default function Page() {
 
               {/* Feature 2 - Payments */}
               <div className="grid md:grid-cols-2 gap-8 items-center scroll-animation">
-                <div className="bg-neutral-900 w-[340px] h-[420px] hover:w-[360px] hover:h-[440px] rounded-xl border border-neutral-800 hover:border-[#F86422]/70 p-6 relative overflow-hidden group mx-auto transition-all duration-300">
+                <div className="bg-neutral-900 w-[340px] h-[420px] hover:w-[360px] hover:h-[440px] rounded-xl border border-neutral-800 hover:border-[#F86422]/70 p-6 relative overflow-visible group mx-auto transition-all duration-300">
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                     <div className="absolute inset-[-1px] rounded-xl bg-[#F86422] blur-lg opacity-30" />
                   </div>
@@ -819,10 +993,10 @@ export default function Page() {
                     </li>
                   </ul>
                 </div>
-                <div className="order-1 md:order-2 bg-neutral-900 w-[320px] h-[280px] hover:w-[380px] hover:h-[340px] rounded-xl border border-neutral-800 hover:border-[#F86422]/70 p-6 relative overflow-hidden group mx-auto transition-all duration-300">
+                <div className="order-1 md:order-2 bg-neutral-900 w-[320px] h-[280px] hover:w-[380px] hover:h-[340px] rounded-xl border border-neutral-800 hover:border-[#F86422]/70 p-6 relative overflow-visible group mx-auto transition-all duration-300">
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                     <div className="absolute inset-[-1px] rounded-xl bg-[#F86422] blur-lg opacity-30" />
-                  </div>
+              </div>
                   <div className="relative z-10 w-full h-full flex items-center justify-center">
                     <div className="bg-neutral-800 rounded-lg p-4 w-64 shadow-lg transition-all duration-300 hover:w-80 hover:scale-105 group">
                       <div className="flex items-center gap-3 mb-4">
@@ -881,25 +1055,95 @@ export default function Page() {
               {/* Feature 4 - Mobile */}
               <div className="grid md:grid-cols-2 gap-8 items-center scroll-animation">
                 <div className="bg-neutral-800 rounded-[32px] p-4 w-[280px] h-[560px] shadow-lg transition-all duration-300 hover:scale-105 group mx-auto">
-                  <div className="bg-neutral-900 rounded-[24px] w-full h-full p-4 relative overflow-hidden">
+                  <div className="bg-neutral-900 rounded-[24px] w-full h-full p-4 relative overflow-visible">
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                       <div className="absolute inset-[-1px] rounded-[24px] bg-[#F86422] blur-lg opacity-30" />
                     </div>
                     <div className="relative z-10">
-                      <div className="flex items-center justify-between mb-6">
-                        <div>
-                          <div className="text-sm font-medium">Welcome back</div>
-                          <div className="text-xs text-neutral-400">Sarah</div>
+                      <div className="space-y-6">
+                        {/* Digital Membership Card - Appears on Hover */}
+                        <div className="relative overflow-visible">
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[280px] opacity-0 group-hover:opacity-100 group-hover:-translate-y-24 transition-all duration-500 ease-out z-50">
+                            <div 
+                              className="bg-neutral-800 p-4 rounded-xl shadow-lg border border-neutral-700 transform group-hover:scale-110 transition-all duration-500 relative group/card overflow-hidden"
+                              onMouseMove={(e) => {
+                                const card = e.currentTarget;
+                                const rect = card.getBoundingClientRect();
+                                const x = e.clientX - rect.left;
+                                const y = e.clientY - rect.top;
+                                card.style.setProperty('--mouse-x', `${x}px`);
+                                card.style.setProperty('--mouse-y', `${y}px`);
+                              }}
+                            >
+                              {/* Glow Effect */}
+                              <div className="pointer-events-none absolute -inset-px opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                                <div className="absolute inset-0 rounded-xl bg-[#F86422] opacity-30 blur-lg"
+                                  style={{
+                                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(248, 100, 34, 0.15), transparent 40%)`
+                                  }}
+                                />
+                              </div>
+                              <div className="relative z-10">
+                                <div className="flex items-center justify-between mb-3">
+                                  <div>
+                                    <div className="text-sm font-medium">Digital Membership</div>
+                                    <div className="text-xs text-neutral-400">Premium Access</div>
+                                  </div>
+                                  <div className="w-8 h-8 rounded-full bg-[#F86422]/20 flex items-center justify-center">
+                                    <svg className="w-4 h-4 text-[#F86422]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                      <rect x="3" y="5" width="18" height="14" rx="2"/>
+                                      <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                  </div>
+                                </div>
+                                <div className="flex gap-4">
+                                  <div className="flex-1 space-y-2">
+                                    <div className="flex justify-between items-center">
+                                      <span className="text-xs text-neutral-400">Member ID</span>
+                                      <span className="text-xs font-medium">GYM-2024-1234</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                      <span className="text-xs text-neutral-400">Status</span>
+                                      <span className="text-xs text-green-400">Active</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                      <span className="text-xs text-neutral-400">Valid Until</span>
+                                      <span className="text-xs font-medium">Jan 2025</span>
+                                    </div>
+                                  </div>
+                                  <div className="w-24 h-24 bg-white p-2 rounded-lg flex items-center justify-center">
+                                    <svg className="w-full h-full text-black" viewBox="0 0 100 100">
+                                      <path fill="currentColor" d="M0 0h40v40H0zm50 0h40v40H50zM0 50h40v40H0zm60 60h10V90H60zm20-20h10V70H80zM50 60h10V50H50zm20 0h10V50H70zm-20 20h10V70H50zm20 0h10V70H70zm-20 20h10V90H50z"/>
+                                    </svg>
+                                  </div>
+                                </div>
+                                {/* Additional Details - Show on Card Hover */}
+                                <div className="mt-3 overflow-hidden transition-all duration-300 max-h-0 group-hover/card:max-h-[80px] opacity-0 group-hover/card:opacity-100">
+                                  <div className="pt-3 border-t border-neutral-700 space-y-2">
+                                    <div className="flex justify-between text-xs">
+                                      <span className="text-neutral-400">Last Check-in</span>
+                                      <span>Today, 9:30 AM</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                      <span className="text-neutral-400">Monthly Visits</span>
+                                      <span className="text-[#F86422]">24/30</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                      <span className="text-neutral-400">Membership Level</span>
+                                      <span className="text-[#F86422]">Elite</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="mt-3 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                                  <div className="h-full w-full bg-gradient-to-r from-[#F86422] to-[#F86422]/60 transition-all duration-300 group-hover/card:from-[#F86422] group-hover/card:to-[#F86422]/80" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-[#F86422]/20 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-[#F86422]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                          </svg>
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="p-4 bg-neutral-800 rounded-xl group-hover:bg-neutral-800/80 transition-colors">
+
+                        {/* Today's Class */}
+                        <div className="p-4 bg-neutral-800 rounded-xl group-hover:bg-neutral-800/80 transition-colors mb-4">
                           <div className="text-sm font-medium mb-2">Today's Class</div>
                           <div className="text-xs text-neutral-400">HIIT Training - 6:00 PM</div>
                           <div className="mt-2 flex gap-2">
@@ -911,14 +1155,18 @@ export default function Page() {
                             </div>
                           </div>
                         </div>
-                        <div className="p-4 bg-neutral-800 rounded-xl group-hover:bg-neutral-800/80 transition-colors">
+
+                        {/* Workout Progress */}
+                        <div className="p-4 bg-neutral-800 rounded-xl group-hover:bg-neutral-800/80 transition-colors mb-4">
                           <div className="text-sm font-medium mb-2">Workout Progress</div>
                           <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
                             <div className="h-full w-2/3 bg-gradient-to-r from-[#F86422] to-[#F86422]/60 transition-all duration-300 group-hover:from-[#F86422] group-hover:to-[#F86422]/80" />
                           </div>
                           <div className="mt-2 text-xs text-neutral-400">8 of 12 sessions completed</div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-2 gap-4 mt-4">
                           <div className="p-4 bg-neutral-800 rounded-xl group-hover:bg-neutral-800/80 transition-colors">
                             <div className="text-2xl font-bold text-[#F86422]">24</div>
                             <div className="text-xs text-neutral-400">Classes This Month</div>
@@ -1000,104 +1248,302 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Pricing Section */}
-        <section className="py-20 px-6 border-t border-neutral-800">
-          <div className="max-w-[1200px] mx-auto text-center">
-            <div className="scroll-animation">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Plan</h2>
-              <p className="text-neutral-400 mb-12">Select the perfect plan for your gym&apos;s needs</p>
+        {/* Gymers Suite Section */}
+        <section className="py-32 px-6 border-t border-neutral-800">
+          <div className="max-w-[1200px] mx-auto">
+            <div className="text-center mb-24 scroll-animation">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Gym Management</h2>
+              <p className="text-neutral-400">Streamline your gym operations with our comprehensive management suite. Track member activity, monitor performance, and grow your business.</p>
             </div>
-            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="col-span-1 flex">
-                {/* Basic Plan */}
-                <div className="bg-neutral-900 p-8 rounded-xl border border-neutral-800 flex flex-col flex-1">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Basic Plan</h3>
-                    <div className="text-3xl font-bold mb-4">$99/mo</div>
-                    <p className="text-neutral-400 mb-6">Perfect for Small Gyms</p>
+
+            <div className="space-y-32 max-w-4xl mx-auto">
+              {/* Gymers Suite Section */}
+              <div className="grid md:grid-cols-2 gap-12 items-center scroll-animation">
+                <div className="jsx-501315f001146c70 bg-neutral-900 rounded-xl p-6 relative overflow-hidden group transform transition-all duration-500 hover:scale-105">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <div className="absolute inset-[-1px] rounded-xl bg-[#F86422] blur-lg opacity-30" />
                   </div>
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    <li className="flex items-center gap-2">
+                  <div className="relative z-10">
+                    {/* CRM Header */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div>
+                        <div className="text-lg font-semibold">Gymers Suite</div>
+                        <div className="text-sm text-neutral-400">Dashboard Overview</div>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#F86422]/10 flex items-center justify-center">
+                          <div className="w-2 h-2 rounded-full bg-[#F86422] animate-pulse" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Quick Stats Grid */}
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors group/stat">
+                        <div className="text-2xl font-bold text-[#F86422] group-hover/stat:scale-105 transition-transform">847</div>
+                        <div className="text-sm text-neutral-400">Active Members</div>
+                      </div>
+                      <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors group/stat">
+                        <div className="text-2xl font-bold text-green-400 group-hover/stat:scale-105 transition-transform">92%</div>
+                        <div className="text-sm text-neutral-400">Retention Rate</div>
+                      </div>
+                    </div>
+
+                    {/* Activity Graph */}
+                    <div className="bg-neutral-800/50 p-4 rounded-lg mb-4 hover:bg-neutral-800/70 transition-colors">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-medium">Member Activity</div>
+                        <div className="text-xs text-[#F86422]">This Week</div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                          <div className="text-xs text-neutral-400 w-12">Mon</div>
+                          <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[85%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" />
+                          </div>
+                          <div className="text-xs">85%</div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-xs text-neutral-400 w-12">Tue</div>
+                          <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[75%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '200ms' }} />
+                          </div>
+                          <div className="text-xs">75%</div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-xs text-neutral-400 w-12">Wed</div>
+                          <div className="flex-1 h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[90%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-1000 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '400ms' }} />
+                          </div>
+                          <div className="text-xs">90%</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Revenue Graph */}
+                    <div className="bg-neutral-800/50 p-4 rounded-lg mb-4 hover:bg-neutral-800/70 transition-colors">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-medium">Revenue Growth</div>
+                        <div className="text-xs text-green-400">+24% MTD</div>
+                      </div>
+                      <div className="flex h-24 items-end gap-2">
+                        {[40, 65, 45, 75, 85, 60, 95].map((height, i) => (
+                          <div key={i} className="flex-1 bg-neutral-700 rounded-t-sm overflow-hidden group/bar hover:bg-neutral-600 transition-colors">
+                            <div 
+                              className="bg-gradient-to-t from-[#F86422] to-[#F86422]/60 h-0 group-hover:h-full transition-[height] duration-700" 
+                              style={{ height: `${height}%`, transitionDelay: `${i * 100}ms` }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex justify-between mt-2 text-xs text-neutral-400">
+                        <span>Mon</span>
+                        <span>Sun</span>
+                      </div>
+                    </div>
+
+                    {/* Membership Distribution */}
+                    <div className="bg-neutral-800/50 p-4 rounded-lg hover:bg-neutral-800/70 transition-colors">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-medium">Membership Types</div>
+                        <div className="text-xs text-[#F86422]">Distribution</div>
+                      </div>
+                      <div className="flex gap-2">
+                        <div className="flex-1 space-y-2">
+                          <div className="flex justify-between text-xs">
+                            <span>Premium</span>
+                            <span className="text-[#F86422]">45%</span>
+                          </div>
+                          <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[45%] bg-[#F86422] rounded-full transform origin-left transition-transform duration-700 scale-x-0 group-hover:scale-x-100" />
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Standard</span>
+                            <span className="text-green-400">35%</span>
+                          </div>
+                          <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[35%] bg-green-400 rounded-full transform origin-left transition-transform duration-700 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '200ms' }} />
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Basic</span>
+                            <span className="text-blue-400">20%</span>
+                          </div>
+                          <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                            <div className="h-full w-[20%] bg-blue-400 rounded-full transform origin-left transition-transform duration-700 scale-x-0 group-hover:scale-x-100" style={{ transitionDelay: '400ms' }} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-semibold mb-4">Powerful Gym Management</h3>
+                  <p className="text-neutral-400 mb-8">Streamline your gym operations with our comprehensive management suite. Track member activity, monitor performance, and grow your business.</p>
+                  <ul className="space-y-4">
+                    <li className="flex items-center gap-2 feature-list-item">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M20 6L9 17l-5-5"/>
                       </svg>
-                      Member Management
+                      <span>Real-time analytics and insights</span>
                     </li>
-                    <li className="flex items-center gap-2">
+                    <li className="flex items-center gap-2 feature-list-item">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M20 6L9 17l-5-5"/>
                       </svg>
-                      Basic Scheduling
+                      <span>Member activity tracking</span>
                     </li>
-                    <li className="flex items-center gap-2">
+                    <li className="flex items-center gap-2 feature-list-item">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M20 6L9 17l-5-5"/>
                       </svg>
-                      Payment Processing
+                      <span>Automated reporting system</span>
+                    </li>
+                    <li className="flex items-center gap-2 feature-list-item">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                      <span>Business performance metrics</span>
                     </li>
                   </ul>
-                  <Button className="w-full" variant="outline">Get Started</Button>
                 </div>
               </div>
-              <div className="col-span-1 flex">
-                {/* Pro Plan */}
-                <div className="bg-neutral-800 p-10 rounded-xl border-2 border-[#F86422]/20 relative flex flex-col flex-1 scale-105">
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#F86422]/90 text-white px-4 py-1.5 rounded-full text-xs font-medium">
-                    Most Popular
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">Pro Plan</h3>
-                    <div className="text-2xl font-bold mb-1 text-white">$199/mo</div>
-                    <div className="text-xs text-neutral-300 mb-4">Save 20% with annual billing</div>
-                    <p className="text-sm text-neutral-300 mb-6">For Growing Fitness Centers</p>
-                  </div>
-                  <ul className="space-y-4 mb-8 text-sm text-neutral-200 flex-grow">
-                    <li className="flex items-center gap-2">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M20 6L9 17l-5-5"/>
-                      </svg>
-                      Everything in Basic
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M20 6L9 17l-5-5"/>
-                      </svg>
-                      Advanced Analytics
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M20 6L9 17l-5-5"/>
-                      </svg>
-                      Staff Management
-                    </li>
-                  </ul>
-                  <Button className="w-full text-sm bg-[#F86422] hover:bg-[#F86422]/90 text-white">Get Started</Button>
-                </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section className="py-24">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-4">Choose Your Plan</h2>
+            <p className="text-neutral-400">Select the perfect plan for your fitness journey</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+            {/* Basic Plan */}
+            <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 relative group hover:border-[#F86422]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-8px_rgba(248,100,34,0.1)]"
+              onMouseMove={(e) => {
+                const card = e.currentTarget;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+              }}
+            >
+              {/* Glow Effect */}
+              <div className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 rounded-xl"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(248, 100, 34, 0.1), transparent 40%)`
+                  }}
+                />
               </div>
-              <div className="col-span-1 flex">
-                {/* Enterprise Plan */}
-                <div className="bg-neutral-900 p-8 rounded-xl border border-neutral-800 flex flex-col flex-1">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-                    <div className="text-3xl font-bold mb-4">Custom</div>
-                    <p className="text-neutral-400 mb-6">For Gym Chains & Franchises</p>
-                  </div>
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    <li className="flex items-start gap-2">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="flex-shrink-0 mt-1">
-                        <path d="M20 6L9 17l-5-5"/>
-                      </svg>
-                      <span>Everything in Pro</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="flex-shrink-0 mt-1">
-                        <path d="M20 6L9 17l-5-5"/>
-                      </svg>
-                      <span>Custom Integrations</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full" variant="outline">Contact Sales</Button>
-                </div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-semibold mb-4">Basic Plan</h3>
+                <div className="text-3xl font-bold mb-6">$99<span className="text-lg font-normal text-neutral-400">/mo</span></div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center gap-2 text-sm">
+                    <svg className="w-5 h-5 text-[#F86422] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Member Management
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <svg className="w-5 h-5 text-[#F86422] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Basic Scheduling
+                  </li>
+                </ul>
+                <button className="w-full py-2 rounded-lg bg-neutral-800 text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300">Get Started</button>
+              </div>
+            </div>
+
+            {/* Pro Plan */}
+            <div className="bg-neutral-900 rounded-xl p-6 border border-[#F86422]/50 relative group hover:border-[#F86422] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-8px_rgba(248,100,34,0.15)]"
+              onMouseMove={(e) => {
+                const card = e.currentTarget;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+              }}
+            >
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F86422]/90 text-white text-xs font-medium px-3 py-1 rounded-full">
+                Most Popular
+              </div>
+              {/* Glow Effect */}
+              <div className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 rounded-xl"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(248, 100, 34, 0.15), transparent 40%)`
+                  }}
+                />
+              </div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-semibold mb-4">Pro Plan</h3>
+                <div className="text-3xl font-bold mb-6">$199<span className="text-lg font-normal text-neutral-400">/mo</span></div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center gap-2 text-sm">
+                    <svg className="w-5 h-5 text-[#F86422] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Everything in Basic
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <svg className="w-5 h-5 text-[#F86422] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Advanced Analytics
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <svg className="w-5 h-5 text-[#F86422] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Staff Management
+                  </li>
+                </ul>
+                <button className="w-full py-2 rounded-lg bg-[#F86422] text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300 transform group-hover:scale-105">Get Started</button>
+              </div>
+            </div>
+
+            {/* Enterprise Plan */}
+            <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 relative group hover:border-[#F86422]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-8px_rgba(248,100,34,0.1)]"
+              onMouseMove={(e) => {
+                const card = e.currentTarget;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+              }}
+            >
+              {/* Glow Effect */}
+              <div className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 rounded-xl"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(248, 100, 34, 0.1), transparent 40%)`
+                  }}
+                />
+              </div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-semibold mb-4">Enterprise Plan</h3>
+                <div className="text-3xl font-bold mb-6">Custom</div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center gap-2 text-sm">
+                    <svg className="w-5 h-5 text-[#F86422] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Custom Integrations
+                  </li>
+                </ul>
+                <button 
+                  onClick={() => window.open('https://calendly.com/gymersapp/30min', '_blank')}
+                  className="w-full py-2 rounded-lg bg-neutral-800 text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300"
+                >
+                  Contact Sales
+                </button>
               </div>
             </div>
           </div>
