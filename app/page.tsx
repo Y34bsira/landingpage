@@ -33,6 +33,12 @@ export default function Page() {
     const stripe = await stripePromise;
     const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        priceId: 'prod_RdUvhILpCB6wuf' // Replace with your actual price ID
+      }),
     });
     const session = await response.json();
     await stripe?.redirectToCheckout({ sessionId: session.id });
