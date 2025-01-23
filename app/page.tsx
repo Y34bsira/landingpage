@@ -3,6 +3,9 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useEffect, useRef } from "react"
+import { loadStripe } from "@stripe/stripe-js"
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export default function Page() {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -25,6 +28,15 @@ export default function Page() {
 
     return () => observerRef.current?.disconnect();
   }, []);
+
+  const handleCheckout = async () => {
+    const stripe = await stripePromise;
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+    });
+    const session = await response.json();
+    await stripe?.redirectToCheckout({ sessionId: session.id });
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-foreground">
@@ -322,7 +334,7 @@ export default function Page() {
                 }}
               >Three-Tier Software Package for Modern Gyms</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-bold">
+            <h2 className="text-6xl md:text-8xl font-bold mb-8">
               Power Your Gym&apos;s Success Story
             </h2>
             <p className="text-xl text-neutral-400 mb-8 max-w-2xl mx-auto fade-in delay-2">
@@ -589,7 +601,7 @@ export default function Page() {
                         <div className="relative mt-2">
                           {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'].map((month, i) => (
                             <div key={i} className="absolute text-[10px] text-neutral-400" style={{
-                              left: `${(i * 14.25) + 7}%`,
+                              left: `${(i * 14.25) + 8.5}%`,
                               transform: 'translateX(-50%)'
                             }}>{month}</div>
                           ))}
@@ -1326,19 +1338,67 @@ export default function Page() {
                         <div className="text-sm font-medium">Revenue Growth</div>
                         <div className="text-xs text-green-400">+24% MTD</div>
                       </div>
-                      <div className="flex h-24 items-end gap-2">
-                        {[40, 65, 45, 75, 85, 60, 95].map((height, i) => (
-                          <div key={i} className="flex-1 bg-neutral-700 rounded-t-sm overflow-hidden group/bar hover:bg-neutral-600 transition-colors">
-                            <div 
-                              className="bg-gradient-to-t from-[#F86422] to-[#F86422]/60 h-0 group-hover:h-full transition-[height] duration-700" 
-                              style={{ height: `${height}%`, transitionDelay: `${i * 100}ms` }}
-                            />
+                      <div className="relative h-[160px]">
+                        {/* Grid lines */}
+                        <div className="absolute inset-0 z-0">
+                          <div className="h-full flex flex-col justify-between">
+                            {[...Array(5)].map((_, i) => (
+                              <div key={i} className="border-t border-neutral-700/50 w-full h-0" />
+                            ))}
                           </div>
-                        ))}
+                        </div>
+                        {/* Y-axis labels */}
+                        <div className="absolute left-0 top-0 h-full flex flex-col justify-between pr-2 z-10">
+                          <span className="text-[10px] text-neutral-400">100%</span>
+                          <span className="text-[10px] text-neutral-400">75%</span>
+                          <span className="text-[10px] text-neutral-400">50%</span>
+                          <span className="text-[10px] text-neutral-400">25%</span>
+                          <span className="text-[10px] text-neutral-400">0%</span>
+                        </div>
+                        {/* Data Points */}
+                        <div className="absolute inset-0 ml-6 z-20">
+                          {[
+                            { month: 'Jan', revenue: 55 },
+                            { month: 'Feb', revenue: 70 },
+                            { month: 'Mar', revenue: 65 },
+                            { month: 'Apr', revenue: 80 },
+                            { month: 'May', revenue: 85 },
+                            { month: 'Jun', revenue: 88 },
+                            { month: 'Jul', revenue: 92 }
+                          ].map((data, i) => (
+                            <div key={i} className="absolute group/point" style={{ 
+                              left: `${(i * 14.25) + 7}%`,
+                              bottom: '0',
+                              width: '20px',
+                              height: '100%'
+                            }}>
+                              {/* Revenue point */}
+                              <div 
+                                className="absolute w-2 h-2 bg-green-400 rounded-full -translate-x-1/2 hover:scale-150 transition-transform duration-200"
+                                style={{ 
+                                  bottom: `${data.revenue}%`,
+                                  left: '50%'
+                                }}
+                              />
+                              {/* Combined hover card */}
+                              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover/point:opacity-100 transition-opacity duration-200 pointer-events-none">
+                                <div className="bg-neutral-800 rounded-lg p-2 shadow-lg border border-neutral-700 whitespace-nowrap">
+                                  <div className="text-xs font-medium">{data.month}</div>
+                                  <div className="text-xs text-green-400">Revenue: {data.revenue}%</div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <div className="flex justify-between mt-2 text-xs text-neutral-400">
-                        <span>Mon</span>
-                        <span>Sun</span>
+                      {/* X-axis labels */}
+                      <div className="relative mt-2">
+                        {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'].map((month, i) => (
+                          <div key={i} className="absolute text-[10px] text-neutral-400" style={{
+                            left: `${(i * 14.25) + 8.5}%`,
+                            transform: 'translateX(-50%)'
+                          }}>{month}</div>
+                        ))}
                       </div>
                     </div>
 
@@ -1455,7 +1515,7 @@ export default function Page() {
                     Basic Scheduling
                   </li>
                 </ul>
-                <button className="w-full py-2 rounded-lg bg-neutral-800 text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300">Get Started</button>
+                <button className="w-full py-2 rounded-lg bg-neutral-800 text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300" onClick={handleCheckout}>Get Started</button>
               </div>
             </div>
 
@@ -1504,7 +1564,7 @@ export default function Page() {
                     Staff Management
                   </li>
                 </ul>
-                <button className="w-full py-2 rounded-lg bg-[#F86422] text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300 transform group-hover:scale-105">Get Started</button>
+                <button className="w-full py-2 rounded-lg bg-[#F86422] text-sm font-medium hover:bg-[#F86422]/90 transition-colors duration-300 transform group-hover:scale-105" onClick={handleCheckout}>Get Started</button>
               </div>
             </div>
 
