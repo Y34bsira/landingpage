@@ -1,78 +1,89 @@
 'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth, googleProvider } from '../../firebaseConfig' // Adjust to your Firebase config path
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, googleProvider } from '../../firebaseConfig'; // Adjust to your Firebase config path
+import Button from '../components/Button'; // Ensure this path is correct
+import Link from 'next/link';
+import './login.css';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [isCreatingAccount, setIsCreatingAccount] = useState(false)
-  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
+  const [error, setError] = useState(''); // Added error state
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    setError(''); // Clear previous error
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      router.push('/dashboard')
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push('/dashboard');
     } catch (error) {
-      console.error(error)
+      setError('You have entered the wrong email and password combination.');
+      console.error(error);
     }
-  }
+  };
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithPopup(auth, googleProvider)
-      router.push('/dashboard')
+      await signInWithPopup(auth, googleProvider);
+      router.push('/dashboard');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const handleCreateAccount = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    setError(''); // Clear previous error
     if (password !== confirmPassword) {
-      console.error('Passwords do not match')
-      return
+      setError('Passwords do not match');
+      return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-      router.push('/dashboard')
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push('/dashboard');
     } catch (error) {
-      console.error(error)
+      setError('Failed to create account. Please try again.');
+      console.error(error);
     }
-  }
+  };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black relative overflow-hidden font-sans">
-      <div className="absolute w-[600px] h-[600px] rounded-full bg-[#F86422]/10 blur-3xl animate-pulse -top-32 -left-32" />
-      <div className="absolute w-[400px] h-[400px] rounded-full bg-[#F86422]/20 blur-3xl animate-float1 -bottom-32 -right-32" />
-      <div className="absolute w-[500px] h-[500px] rounded-full bg-[#F86422]/15 blur-3xl animate-float2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-
-      <div className="absolute top-4 left-4">
-        <button
-          onClick={() => router.push('/')}
-          className="py-2 px-4 rounded bg-[#F86422] hover:bg-[#F86422]/90 transition-colors text-white font-bold"
-        >
-          Back
-        </button>
-      </div>
-
-      <div className="relative z-10 p-6 w-full max-w-md bg-neutral-900 rounded-xl transition-transform duration-300">
-        <h1 className="text-3xl font-bold text-center mb-6">{isCreatingAccount ? 'Create Account' : 'Login'}</h1>
-        <form onSubmit={isCreatingAccount ? handleCreateAccount : handleLogin} className="space-y-4 max-w-sm mx-auto">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      <div className="absolute inset-0 bg-gradient-to-r from-[#F86422] via-transparent to-[#F86422] animate-gradient"></div>
+      
+      <div className="relative z-10 w-full max-w-md p-8 bg-neutral-900 bg-opacity-90 rounded-lg shadow-lg">
+        <div className="flex items-center mb-6">
+          <button
+            onClick={() => router.push('/')}
+            className="text-white text-sm mr-auto back-button"
+          >
+            Back
+          </button>
+        </div>
+        <h2 className="text-3xl font-bold text-center mb-6">{isCreatingAccount ? 'Create Account' : 'Login to Your Account'}</h2>
+        {error && (
+          <div className="bg-red-500 text-white p-2 rounded mb-4">
+            {error}
+          </div>
+        )}
+        <form onSubmit={isCreatingAccount ? handleCreateAccount : handleLogin} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
-            className="w-full p-2 rounded bg-neutral-800"
+            className="w-full p-2 rounded bg-neutral-800 text-white" // Changed bg-neutral-900 to bg-neutral-800
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full p-2 rounded bg-neutral-800"
+            className="w-full p-2 rounded bg-neutral-800 text-white" // Changed bg-neutral-900 to bg-neutral-800
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -80,31 +91,28 @@ export default function LoginPage() {
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full p-2 rounded bg-neutral-800"
+              className="w-full p-2 rounded bg-neutral-800 text-white" // Changed bg-neutral-900 to bg-neutral-800
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           )}
-          <button
-            type="submit"
-            className="w-full py-2 rounded bg-[#F86422] hover:bg-[#F86422]/90 transition-colors font-bold"
-          >
+          <Button className="w-full py-3 submit-button">
             {isCreatingAccount ? 'Create Account' : 'Sign In'}
-          </button>
+          </Button>
         </form>
         {!isCreatingAccount && (
           <div className="flex justify-between mt-4 gap-4">
-            <button
+            <Button
               onClick={handleGoogleSignIn}
               className="w-1/2 py-3 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors"
             >
               Sign in with Google
-            </button>
-            <button
+            </Button>
+            <Button
               className="w-1/2 py-3 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors"
             >
               Sign in with Twitter
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -140,6 +148,21 @@ export default function LoginPage() {
         }
         .demo-button:hover {
           box-shadow: 0 0 30px rgba(248, 100, 34, 0.2);
+        }
+        .bg-red-500 {
+          background-color: #f56565;
+        }
+        .text-white {
+          color: #ffffff;
+        }
+        .p-2 {
+          padding: 0.5rem;
+        }
+        .rounded {
+          border-radius: 0.25rem;
+        }
+        .mb-4 {
+          margin-bottom: 1rem;
         }
       `}</style>
     </div>
