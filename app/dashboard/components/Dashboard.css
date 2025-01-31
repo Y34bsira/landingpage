@@ -1,0 +1,58 @@
+.dashboard-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.add-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.add-item input {
+    flex: 1;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.add-item button {
+    padding: 8px 16px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.item button {
+    margin-left: 10px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
+.stat {
+    background-color: #1a202c;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 30%;
+}
+
+.stat h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.stat p {
+    font-size: 2rem;
+    color: #f6ad55;
+}
+
+/* Add additional styles as needed */
