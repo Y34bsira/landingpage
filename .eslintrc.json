@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "next",
-    "@eslint/config-array" // Replaced deprecated package
-  ],
+  "extends": ["next/core-web-vitals"],
   "rules": {
     "react/no-unescaped-entities": "off"
   }
